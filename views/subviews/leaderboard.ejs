@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leaderboard</title>
+    <link rel="stylesheet" href="/CSS/sidebar.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: url('/images//black.avif') ;
+            margin: 0;
+            background-size: cover;
+            background-position: center center;
+            padding: 0;
+        }
+
+        .sidenav {
+            height: 100%;
+            width: 230px;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background-color: #111;
+            overflow-x: hidden;
+            padding-top: 20px;
+        }
+
+        /* Styles for main content area */
+        .content {
+            margin-left: 250px;
+            padding: 20px;
+        }
+
+        .heading {
+            font-size: 24px;
+            color: #9c9c9c;
+        }
+
+        .batch_cards {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 20px;
+
+        }
+
+        /* Style for batch card */
+        .batch-card {
+            width: 150px;
+            height: 150px;
+            border: 2px solid #ccc;
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            color: white;
+            box-shadow: 0 0 30px rgba(0, 0, 0, .5);
+            backdrop-filter: blur(20px);
+            background: transparent;
+            transition: background-color 0.2s ease;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            padding: 10px;
+            margin-bottom: 20px;
+            font-size: 20px;
+
+        }
+
+        .batch_cards :hover {
+            color: rgba(16, 119, 145, 0.647);
+            background: white;
+            font-weight: 600;
+            font-size: 25px;
+        }
+
+        /* Style for selected batch card */
+        .batch-card.selected {
+            background-color: rgba(16, 119, 145, 0.647);
+            color: white;
+        }
+
+        /* Style for announcement card */
+        .leaderboard-card {
+            margin-top: 20px;
+            padding: 20px;
+            border: 2px solid #ccc;
+            border-radius: 8px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Form styling */
+        form {
+            width: 100%;
+            max-width: 400px;
+            margin-top: 20px;
+            padding: 20px;
+            border: 2px solid #ccc;
+            border-radius: 8px;
+            backdrop-filter: blur(20px);
+            background: transparent;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        button[type="submit"] {
+
+            transition: background-color 0.2s ease;
+            border: 1px solid rgb(84, 83, 83);
+            border-radius: 10px;
+            padding: 10px 20px;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+            font-weight: 600;
+            border: 1px solid rgb(84, 83, 83);
+            background: rgba(20, 197, 241, 0.588);
+        }
+
+        button[type="submit"]:hover {
+         
+            color: rgba(16, 119, 145, 0.647);
+            font-weight: 600;
+           
+            border: 1px solid rgb(84, 83, 83);
+            background: white;
+            border-radius: 10px;
+            border: 1px solid rgb(84, 83, 83);
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: 600;
+
+        }
+    </style>
+<style>
+.content{
+    margin-left: 230px;
+}
+</style>
+</head>
+<body>
+    <!-- Sidebar (common to all pages) -->
+   <!-- this should be present in all the htmls -->
+   <div class="sidenav">
+    <input type="search" id="searchInput" placeholder="Search" title="Type to search" class="search-box">
+    <br>
+    <br>
+    <a href="/home" class="home_page">Home</a>
+    <br>
+    <a href="/announcement" class="announcement">Announcements</a>
+    <br>
+    <a href="/timetable" class="time-table">Time Table</a>
+    <br>
+    <a href="/e-books" class="books">e-Books/materials</a>
+    <br>
+    <a href="/events" class="events">Events</a>
+    <br>
+    <a href="/planner" class="planner">Planner</a>
+    <br>
+    <a href="/chats" class="chat">Chat</a>
+    <br>
+    <a href="/leaderboard" class="Leaderboard">Leaderboard</a>
+    <br>
+
+    <a href="/contactUs" class="emails">Contact Us</a>
+    <br>
+    
+    
+</div>
+
+
+    <div class="content">
+        <h1 class="heading">Leaderboard</h1>
+        
+        <!-- Batch cards section -->
+        <div class="batch_cards">
+            <div class="batch-card" onclick="showAnnouncements('CS-2023')" data-batch="CS-2023"><b>CS-2023</b></div>
+            <div class="batch-card" onclick="showAnnouncements('AD-2023')" data-batch="AD-2023"><b>AD-2023</b></div>
+            <div class="batch-card" onclick="showAnnouncements('CS-2022')" data-batch="CS-2022"><b>CS-2022</b></div>
+            <div class="batch-card" onclick="showAnnouncements('CS-2021')" data-batch="CS-2021"><b>CS-2021</b></div>
+            <div class="batch-card" onclick="showAnnouncements('CS-2020')" data-batch="CS-2020"><b>CS-2020</b></div>
+        </div>
+
+        <!-- Leaderboard container to display entries -->
+        <div id="leaderboard-container"></div>
+
+        <!-- Admin form for adding leaderboard entries -->
+        <% if (globalrole === 'admin') { %>
+            <div>
+                <br>
+                <h2 class="heading">Add New Entry:</h2>
+                <form id="leaderboardForm">
+                    <label for="name" style="color:rgb(197, 197, 197); ">Name:</label><br>
+                    <input type="text" id="name" name="name" required><br><br>
+                    
+                    <label for="email" style="color:rgb(197, 197, 197); ">Email:</label><br>
+                    <input type="text" id="email" name="email" required><br><br>
+                    
+                    <label for="batch" style="color:rgb(197, 197, 197); ">Batch:</label><br>
+                    <input type="text" id="batch" name="batch" required><br><br>
+                    
+                    <label for="cgpa" style="color:rgb(197, 197, 197); ">C.G.P.A:</label><br>
+                    <input type="text" id="cgpa" name="cgpa" required><br><br>
+                    
+                    <label for="extra_activity" style="color:rgb(197, 197, 197); ">Extra-curricular Activities:</label><br>
+                    <input type="checkbox" id="sports" name="extra_activity" value="Sports">
+                    <label for="sports" style="color:rgb(197, 197, 197); ">Sports</label><br>
+                    
+                    <input type="checkbox" id="research" name="extra_activity" value="Research">
+                    <label for="research" style="color:rgb(197, 197, 197); ">Research</label><br>
+                    
+                    <input type="checkbox" id="tech" name="extra_activity" value="Tech">
+                    <label for="tech" style="color:rgb(197, 197, 197); ">Tech</label><br>
+                    
+                    <input type="checkbox" id="competitive" name="extra_activity" value="Competitive Programmer">
+                    <label for="competitive" style="color:rgb(197, 197, 197); ">Competitive Programmer</label><br>
+                    
+                    <input type="checkbox" id="dsa" name="extra_activity" value="DSA">
+                    <label for="dsa" style="color:rgb(197, 197, 197); ">DSA</label><br>
+                    
+                    <input type="checkbox" id="webdev" name="extra_activity" value="Web Developer">
+                    <label for="webdev" style="color:rgb(197, 197, 197); ">Web Developer</label><br>
+                    <input type="checkbox" id="webdev" name="extra_activity" value="None of these">
+                    <label for="webdev" style="color:rgb(102, 145, 236); ">None of these</label><br><br>
+                    
+                    
+                    <button type="submit">Add Entry</button>
+                </form>
+            </div>
+        <% } %>
+    </div>
+
+    <script>
+            document.addEventListener('DOMContentLoaded', function() {
+        const searchInput = document.getElementById('searchInput');
+
+        searchInput.addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+
+                const searchTerm = searchInput.value.trim();
+                let tabRoute = '';
+
+                switch (searchTerm) {
+                    case 'profile':
+                        tabRoute = '/profile';
+                        break;
+                    case 'Home':
+                        tabRoute = '/home';
+                        break;
+                    case 'Announcements':
+                        tabRoute = '/announcement';
+                        break;
+                    case 'Time Table':
+                        tabRoute = '/timetable';
+                        break;
+                    case 'Books':
+                        tabRoute = '/e-books';
+                        break;
+                    case 'Events':
+                        tabRoute = '/events';
+                        break;
+                    case 'Planner':
+                        tabRoute = '/planner';
+                        break;
+                        case 'Users':
+                        tabRoute = '/users';
+                        break;
+                    case 'Chat':
+                        tabRoute = '/chats';
+                        break;
+                    case 'Leaderboard':
+                        tabRoute = '/leaderboard';
+                        break;
+                        case 'Contact Us':
+                        tabRoute = '/contactUs';
+                        break;
+                    default:
+                        // Handle invalid search term (optional)
+                        return;
+                }
+
+                if (tabRoute) {
+                    window.location.href = tabRoute;
+                }
+            }
+        });
+    });
+        function showAnnouncements(batch) {
+    // Reset previously selected batch cards
+    const batchCards = document.querySelectorAll('.batch-card');
+    batchCards.forEach(card => {
+        card.classList.remove('selected');
+    });
+
+    // Set the selected batch card
+    const selectedCard = document.querySelector(`.batch-card[data-batch="${batch}"]`);
+    if (selectedCard) {
+        selectedCard.classList.add('selected');
+    }
+
+    // Fetch and display announcements for the selected batch
+    fetchAnnouncements(batch);
+}
+
+function fetchAnnouncements(batch) {
+    fetch('/leaderboard/fetch', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ batch })
+    })
+    .then(response => response.json())
+    .then(data => {
+        // Sort data by CGPA in descending order
+        const sortedData = data.sort((a, b) => b.cgpa - a.cgpa);
+
+        const leaderboardContainer = document.getElementById('leaderboard-container');
+        leaderboardContainer.innerHTML = ''; // Clear previous content
+
+        // Render each student entry with serial number
+        sortedData.forEach((entry, index) => {
+            const card = document.createElement('div');
+            card.classList.add('leaderboard-card');
+            card.innerHTML = `
+                
+                <p><b>Rank:</b> ${index + 1}</p>
+                <p><b>Name:</b> ${entry.name}</p>
+                <p><b>Email:</b> ${entry.email}</p>
+                <p><b>Batch:</b> ${entry.batch}</p>
+                <p><b>CGPA:</b> ${entry.cgpa}</p>
+                <p><b>Extra-curricular Activities:</b> ${entry.extra_activity.join(', ')}</p>
+            `;
+            leaderboardContainer.appendChild(card);
+        });
+    })
+    .catch(error => console.error('Error fetching leaderboard entries:', error));
+}
+document.getElementById('leaderboardForm').addEventListener('submit', (event) => {
+    event.preventDefault();
+
+
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const batch = document.getElementById('batch').value;
+    const cgpa = document.getElementById('cgpa').value;
+
+    // Collect selected extra-curricular activities
+    const selectedActivities = [];
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+    checkboxes.forEach(checkbox => {
+        selectedActivities.push(checkbox.value);
+    });
+
+    // Prepare data to send
+    const formData = {
+        name,
+        email,
+        batch,
+        cgpa,
+        extra_activity: selectedActivities,
+       
+    };
+
+    // Send data to server to add new entry
+    fetch('/leaderboard/add', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+    })
+    .then(response => {
+        if (response.status === 201) {
+            // Entry added successfully
+            return response.json();
+        } else if (response.status === 400) {
+            // Student not registered, show alert
+            alert('Student is not registered. Please register first.');
+            throw new Error('Student is not registered');
+        } else {
+            // Other errors
+            throw new Error('Failed to add entry');
+        }
+    })
+    .then(data => {
+        // Refresh leaderboard after adding new entry
+        showAnnouncements(batch);
+
+        // Clear form inputs
+        document.getElementById('name').value = '';
+        document.getElementById('email').value = '';
+        document.getElementById('batch').value = '';
+        document.getElementById('cgpa').value = '';
+        checkboxes.forEach(checkbox => {
+            checkbox.checked = false;
+        });
+
+        // Display success message (optional)
+        const messageContainer = document.getElementById('messageContainer');
+        messageContainer.textContent = 'Entry added successfully!';
+        messageContainer.style.color = 'green';
+    })
+    .catch(error => {
+        console.error('Error adding new entry:', error);
+
+        // Display error message (optional)
+        const messageContainer = document.getElementById('messageContainer');
+        messageContainer.textContent = error.message || 'Failed to add entry';
+        messageContainer.style.color = 'red';
+    });
+});
+
+    </script>
+</body>
+</html>
+
+

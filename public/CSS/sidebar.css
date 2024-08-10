@@ -1,0 +1,56 @@
+body {
+    font-family: "Lato", sans-serif;
+  }
+*{
+  margin:0;
+}
+.content {
+  /* makes the entire content to be displayed within the scope */
+   margin-left: 230px;
+   margin-top: 10px;
+}
+.sidenav {
+    height: 100%;
+    width: 210px;
+    position: fixed;
+    /* this helps the navigation bar to be fixed despite you scrolling */
+    z-index: 1;
+    /*z-index controls the stacking order of overlapping elements on a page */
+    top: 0;
+    left: 0;
+    background-color: rgb(18, 18, 18);
+    overflow-x: hidden;
+    /*overflow-x sets what shows when content overflows a block-level element's left and right edges */
+    padding-top: 20px;
+    padding-left: 10px;
+    
+}
+
+.sidenav a {
+    /* We choose specifically .sidebar a to only select the ref-link 'a' from the sidebar div only */
+    padding: 6px 8px 6px 16 px;
+    /*top, right, bottom, and left paddings*/
+    text-decoration: none;
+    font-size: 20px;
+    color: whitesmoke;
+    display: block;
+    /*converting it to block level element*/
+}
+
+.sidenav a:hover {
+    color: rgba(0, 85, 255, 0.641);
+}
+
+.search{
+    /* display: flex;
+    // gap:3px; 
+     display: inline-block;
+    gap: 5px; */
+    justify-content: center;
+}
+
+.last{
+    margin-top: 20px;
+} 
+
+  

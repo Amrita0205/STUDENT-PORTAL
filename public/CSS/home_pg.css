@@ -1,0 +1,27 @@
+.content{
+    margin-left: 230px;
+}
+body{
+    background: url('/images//studying.jpg') no-repeat;
+    background-position: center center;    
+    background-position: 150px 40px;
+    /* it means 150 pixels toward the right and 40 pixels towards the top */
+}
+.heading{
+    
+  text-align: center;
+}
+#intro-para{
+  margin-top:18px;
+}
+p{
+  margin-left: 20px;
+  margin-right:30px;
+  margin-top: 30px;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+}
+.welcome{
+  text-align: center;
+  font-size: 20px;
+}
+

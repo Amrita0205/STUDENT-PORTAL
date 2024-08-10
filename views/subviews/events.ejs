@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events</title>
+    <link rel="stylesheet" href="/CSS/sidebar.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url('/images/black.avif') repeat;
+            background-size: cover;
+            background-position: center center;
+        }
+
+        .sidenav {
+            height: 100%;
+            width: 230px;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background-color: #111;
+            overflow-x: hidden;
+            padding-top: 20px;
+        }
+
+        .content {
+            margin-left: 250px;
+            padding: 20px;
+        }
+
+        .heading {
+            font-size: 24px;
+            color: #a7a7a7;
+        }
+
+        .announcement-card {
+            margin-top: 20px;
+            padding: 20px;
+            border: 2px solid rgb(84, 83, 83);
+            border-radius: 10px;
+            backdrop-filter: blur(20px);
+            background: transparent;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        form {
+            width: 100%;
+            max-width: 400px;
+            margin-top: 20px;
+            padding: 20px;
+            border: 2px solid rgb(84, 83, 83);
+            border-radius: 10px;
+            backdrop-filter: blur(20px);
+            background: transparent;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        label {
+            font-weight: bold;
+            color: #9c9c9c;
+        }
+
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        button {
+            padding: 10px 20px;
+            border-radius: 5px;
+            color: white;
+            border: 1px solid rgb(84, 83, 83);
+            background: rgba(20, 197, 241, 0.588);
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: 10px;
+            margin-right: 10px;
+        }
+
+        button:hover {
+            background: white;
+            color: rgba(16, 119, 145, 0.647);
+        }
+
+        .edit-form {
+            margin-top: 20px;
+            padding: 20px;
+            border: 2px solid rgb(84, 83, 83);
+            border-radius: 10px;
+            backdrop-filter: blur(20px);
+            background: transparent;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Sidebar -->
+    <div class="sidenav">
+        <!-- Sidebar links -->
+        <input type="search" id="searchInput" placeholder="Search" title="Type to search" class="search-box">
+        <br><br>
+        <a href="/home" class="home_page">Home</a><br>
+        <a href="/announcement" class="announcement">Announcements</a><br>
+        <a href="/timetable" class="time-table">Time Table</a><br>
+        <a href="/e-books" class="books">e-Books/Materials</a><br>
+        <a href="/events" class="events">Events</a><br>
+        <a href="/planner" class="planner">Planner</a><br>
+        <a href="/chats" class="chat">Chat</a><br>
+        <a href="/leaderboard" class="Leaderboard">Leaderboard</a><br>
+        <a href="/contactUs" class="emails">Contact Us</a><br>
+    </div>
+
+    <!-- Main content -->
+    <div class="content">
+        <h1 class="heading">Events</h1>
+
+        <!-- Announcement Container -->
+        <div id="announcement-container">
+            <!-- This section will be populated with event cards -->
+        </div>
+
+        <!-- Form to add new event (visible to admins) -->
+        <% if (globalrole==='admin' ) { %>
+            <div>
+                <br>
+                <h2 style="color:#d4d3d3;">Add New Event</h2>
+                <form id="eventForm">
+                    <label for="title">Title:</label><br>
+                    <input type="text" id="title" name="title" required><br><br>
+                    <label for="description">Description:</label><br>
+                    <textarea id="description" name="description" rows="4" cols="30" required></textarea><br><br>
+                    <button type="submit">Add Event</button>
+                </form>
+            </div>
+            <% } %>
+    </div>
+
+    <!-- JavaScript for showing events and handling edit/delete -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const searchInput = document.getElementById('searchInput');
+
+            searchInput.addEventListener('keypress', function (event) {
+                if (event.key === 'Enter') {
+                    event.preventDefault();
+
+                    const searchTerm = searchInput.value.trim();
+                    let tabRoute = '';
+
+                    switch (searchTerm) {
+                        case 'profile':
+                            tabRoute = '/profile';
+                            break;
+                        case 'Home':
+                            tabRoute = '/home';
+                            break;
+                        case 'Announcements':
+                            tabRoute = '/announcement';
+                            break;
+                        case 'Time Table':
+                            tabRoute = '/timetable';
+                            break;
+                        case 'Books':
+                            tabRoute = '/e-books';
+                            break;
+                        case 'Events':
+                            tabRoute = '/events';
+                            break;
+                        case 'Planner':
+                            tabRoute = '/planner';
+                            break;
+                        case 'Chat':
+                            tabRoute = '/chats';
+                            break;
+                        case 'Leaderboard':
+                            tabRoute = '/leaderboard';
+                            break;
+                        case 'Contact Us':
+                            tabRoute = '/contactUs';
+                            break;
+                        default:
+                            // Handle invalid search term (optional)
+                            return;
+                    }
+
+                    if (tabRoute) {
+                        window.location.href = tabRoute;
+                    }
+                }
+            });
+        });
+        
+        // Fetch and display events on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchEvents();
+        });
+
+        // Function to fetch and display events
+        function fetchEvents() {
+            fetch('/events/fetch')
+                .then(response => response.json())
+                .then(data => {
+                    const announcementContainer = document.getElementById('announcement-container');
+                    if (announcementContainer) {
+                        announcementContainer.innerHTML = ''; // Clear previous content
+
+
+                        data.forEach(event => {
+                            const card = document.createElement('div');
+                            card.classList.add('announcement-card');
+                            card.id = `card_${event._id}`; // Assign unique ID to the card
+                            card.innerHTML = `
+        <p><b><span style="color: rgba(20, 197, 241, 0.588);">Title:</span></b> <span style="color: white;">${event.title}</span></p>
+        <p><b><span style="color: rgba(20, 197, 241, 0.588);">Description:</span></b><span style="color: white;"> ${event.description}</span></p>
+    `;
+
+                            // Display edit and delete buttons for admins
+                            if ("<%= globalrole %>" === 'admin') {
+                                const editButton = document.createElement('button');
+                                editButton.innerText = 'Edit';
+                                editButton.addEventListener('click', () => showEditForm(event._id, event.title, event.description));
+                                card.appendChild(editButton);
+
+                                const deleteButton = document.createElement('button');
+                                deleteButton.innerText = 'Delete';
+                                deleteButton.addEventListener('click', () => deleteEvent(event._id));
+                                card.appendChild(deleteButton);
+                            }
+
+                            announcementContainer.appendChild(card);
+                        });
+
+                    }
+                })
+                .catch(error => console.error('Error fetching events:', error));
+        }
+
+
+        function showEditForm(eventId, currentTitle, currentDescription) {
+            const cardElement = document.getElementById(`card_${eventId}`);
+
+            if (cardElement) {
+                const editFormId = `editForm_${eventId}`;
+                let editForm = document.getElementById(editFormId);
+
+                // Check if edit form already exists
+                if (!editForm) {
+                    // Create a new edit form
+                    editForm = document.createElement('form');
+                    editForm.classList.add('edit-form');
+                    editForm.id = editFormId;
+                    editForm.innerHTML = `
+                <label for="editTitle">New Title:</label><br>
+                <input type="text" id="editTitle" name="editTitle" value="${currentTitle}" required><br><br>
+                <label for="editDescription">New Description:</label><br>
+                <textarea id="editDescription" name="editDescription" rows="4" cols="30" required>${currentDescription}</textarea><br><br>
+                <button type="button" onclick="updateEvent('${eventId}')">Save Changes</button>
+                <button type="button" onclick="hideEditForm('${eventId}')">Cancel</button>
+
+            `;
+
+                    // Append the edit form below the card
+                    cardElement.insertAdjacentElement('afterend', editForm);
+                }
+            }
+        }
+        function hideEditForm(eventId) {
+            const editForm = document.getElementById(`editForm_${eventId}`);
+            if (editForm) {
+                editForm.remove();
+            }
+        }
+
+        // Function to update event
+        function updateEvent(eventId) {
+            const newTitle = document.getElementById('editTitle').value;
+            const newDescription = document.getElementById('editDescription').value;
+
+            fetch(`/events/update/${eventId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ title: newTitle, description: newDescription })
+            })
+                .then(() => {
+                    // Reload events after update
+                    fetchEvents();
+                })
+                .catch(error => console.error('Error updating event:', error));
+        }
+
+        // Function to delete event
+        function deleteEvent(eventId) {
+            fetch(`/events/delete/${eventId}`, {
+                method: 'DELETE'
+            })
+                .then(() => {
+                    // Reload events after deletion
+                    fetchEvents();
+                })
+                .catch(error => console.error('Error deleting event:', error));
+        }
+
+        // Form submission to add new event
+        document.getElementById('eventForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+            const title = document.getElementById('title').value;
+            const description = document.getElementById('description').value;
+
+            fetch('/events/add', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ title, description })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    // Refresh events after adding new event
+                    fetchEvents();
+                    // Clear form inputs
+                    document.getElementById('title').value = '';
+                    document.getElementById('description').value = '';
+                })
+                .catch(error => console.error('Error adding event:', error));
+        });
+
+
+    </script>
+</body>
+
+</html>

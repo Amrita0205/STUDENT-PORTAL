@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            /* background-color: #f4f4f4; */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            /* background: url('/images//pexels-simon-rizzi-1809644.jpg') ; */
+            background: url('/images//dark green bgc.jpg');
+            background-size: cover;
+            background-position: center center;
+        }
+        
+        .container {
+            margin-top: 43px;
+            width: 400px;
+            padding: 20px;
+            /* background-color: #fff; */
+            border: 2px solid rgb(84, 83, 83);
+            margin-left: 70px;
+            margin-bottom:5px;
+            box-shadow: 0 0 30px rgba(0, 0, 0, .5);
+            backdrop-filter: blur(35px);
+            background: transparent;
+            border-radius: 10px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            resize: vertical;
+            height: 100px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px 20px;
+            border-radius: 10px;
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+            font-weight: 600;
+            border: 1px solid rgb(84, 83, 83);
+            background: rgba(20, 197, 241, 0.588);
+            transition: background-color 0.2s ease;
+            
+        }
+
+        button:hover {
+            color: rgba(16, 119, 145, 0.647);
+            font-weight: 600;
+           
+            border: 1px solid rgb(84, 83, 83);
+            background: white;
+            border-radius: 10px;
+            border: 1px solid rgb(84, 83, 83);
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: 600;        }
+    </style>
+</head>
+
+<body>
+
+    <link rel="stylesheet" href="/CSS/sidebar.css">
+    <style>
+        .content {
+            margin-left: 350px;
+        }
+    </style>
+    </head>
+
+    <body>
+        <!-- this should be present in all the htmls -->
+        <div class="sidenav">
+            <input type="search" id="searchInput" placeholder="Search" title="Type to search" class="search-box">
+            <br>
+            <br>
+            <a href="/home" class="home_page">Home</a>
+            <br>
+            <a href="/announcement" class="announcement">Announcements</a>
+            <br>
+            <a href="/timetable" class="time-table">Time Table</a>
+            <br>
+            <a href="/e-books" class="books">e-Books/materials</a>
+            <br>
+            <a href="/events" class="events">Events</a>
+            <br>
+            <a href="/planner" class="planner">Planner</a>
+            <br>
+            <a href="/chats" class="chat">Chat</a>
+            <br>
+            <a href="/leaderboard" class="Leaderboard">Leaderboard</a>
+            <br>
+
+            <a href="/contactUs" class="emails">Contact Us</a>
+            <br>
+
+        </div>
+        </div>
+
+        <div class="container">
+            <h1>Contact Us</h1>
+            <form action="/contact" method="POST">
+                <label for="name">Name:</label><br>
+                <input type="text" id="name" name="name" required placeholder="Enter your name"><br>
+
+                <label for="email">Email:</label><br>
+                <input type="email" id="email" name="email" required placeholder="Enter your email"><br>
+
+                <label for="subject">Subject:</label><br>
+                <input type="text" id="subject" name="subject" required placeholder="Enter your Subject"><br>
+
+                <label for="message">Message:</label><br><br>
+                <textarea id="message" name="message" rows="5" required placeholder="Enter your message"></textarea><br>
+                <!-- <textarea id="message" name="message" rows="3" cols="30" required></textarea><br> -->
+
+
+                <button type="submit">Send Message</button>
+            </form>
+            <% if (typeof message !== 'undefined') { %>
+                <% if(message!=='Failed to submit the form.'){%>
+                <p style="color: rgb(5, 203, 22); margin-top: 10px; display:flex; text-align: center; justify-content: center;"><%= message %></p>
+                <%} else {%>
+                    <p style="color: rgb(203, 31, 5); margin-top: 10px; display:flex; text-align: center; justify-content: center;"><%= message %></p>
+            <% } %>
+            <% } %>
+        </div>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const searchInput = document.getElementById('searchInput');
+
+                searchInput.addEventListener('keypress', function (event) {
+                    if (event.key === 'Enter') {
+                        event.preventDefault();
+
+                        const searchTerm = searchInput.value.trim();
+                        let tabRoute = '';
+
+                        switch (searchTerm) {
+                            case 'profile':
+                                tabRoute = '/profile';
+                                break;
+                            case 'Home':
+                                tabRoute = '/home';
+                                break;
+                            case 'Announcement':
+                                tabRoute = '/announcement';
+                                break;
+                            case 'Time Table':
+                                tabRoute = '/timetable';
+                                break;
+                                case 'Users':
+                        tabRoute = '/users';
+                        break;
+                            case 'Books':
+                                tabRoute = '/e-books';
+                                break;
+                            case 'Events':
+                                tabRoute = '/events';
+                                break;
+                            case 'Planner':
+                                tabRoute = '/planner';
+                                break;
+                            case 'Chat':
+                                tabRoute = '/chats';
+                                break;
+                            case 'Leaderboard':
+                                tabRoute = '/leaderboard';
+                                break;
+                            case 'Contact Us':
+                                tabRoute = '/contactUs';
+                                break;
+                            default:
+                                // Handle invalid search term (optional)
+                                return;
+                        }
+
+                        if (tabRoute) {
+                            window.location.href = tabRoute;
+                        }
+                    }
+                });
+            });
+        </script>
+
+    </body>
+
+</html>

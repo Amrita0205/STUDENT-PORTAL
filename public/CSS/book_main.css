@@ -1,0 +1,70 @@
+
+.heading{
+    margin-left: 350px;
+    flex-wrap: wrap;
+} 
+
+
+*{
+   margin:0;
+   padding:0;
+   box-sizing: border-box; 
+   flex-wrap: wrap;
+   /* It adds padding and margin to tj=he elements */
+}
+.menu_bar{
+    display:flex ;
+    /* background-color: #5846e5; */
+    /* background-: 100%; */
+    align-items: center;
+    justify-content: space-between;
+}
+.menu_bar ul{
+    list-style: none; 
+    /* the bullets won't be there */
+    display: flex;
+    gap:5px;
+    justify-content: center;
+}
+.menu_bar ul li{
+    padding: 10px 30px;
+}
+.menu_bar ul li a{
+    color:rgb(120, 42, 214);
+    text-decoration: none;
+    font-size: 20px;
+    transition: all 0.3s; 
+    /* this is animation property that we add for effects in css */
+
+}
+.menu_bar ul li a:hover{
+    color:rgb(255, 255, 255);
+    background-color:rgb(120, 42, 214);
+    border-radius: 5px;
+    height: 15px;
+    width: 15px;
+    padding :10px;
+    text-decoration: none;
+    font-size: 20px;
+}
+.dropdown_menu{
+    position: absolute;
+ 
+   display: none;
+   position: absolute;
+   background-color: #f9f9f9;
+   min-width: 160px;
+   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+   z-index: 1;
+   background-color: #9141e1;
+}
+.dropdown_menu ul{
+    list-style: none;
+    display: block;
+    margin: 10px;
+}
+.dropdown_menu ul li{
+   width: 150px;
+}
+
+/* This will be the same for every thing */

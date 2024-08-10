@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time-Table</title>
+    <link rel="stylesheet" href="/CSS/time_main.css">
+    <link rel="stylesheet" href="/CSS/sidebar.css">
+</head>
+
+<body>
+        <!-- this should be present in all the htmls -->
+    <div class="sidenav">
+        <input type="search" id="searchInput" placeholder="Search" title="Type to search" class="search-box">
+        <br>
+        <br>
+        <a href="/home" class="home_page">Home</a>
+        <br>
+        <a href="/announcement" class="announcement">Announcements</a>
+        <br>
+        <a href="/timetable" class="time-table">Time Table</a>
+        <br>
+        <a href="/e-books" class="books">e-Books/materials</a>
+        <br>
+        <a href="/events" class="events">Events</a>
+        <br>
+        <a href="/planner" class="planner">Planner</a>
+        <br>
+        <a href="/chats" class="chat">Chat</a>
+        <br>
+        <a href="/leaderboard" class="Leaderboard">Leaderboard</a>
+        <br>
+
+        <a href="/contactUs" class="emails">Contact Us</a>
+        <br>
+        
+        </div>
+    </div>
+<!-- ------------------------------------------------- -->
+
+
+
+
+    <div class="content">
+        <h2 class="heading">Time Table</h2>
+        <p class="contentline">Click on the boxes to view the timetable</p>
+        <div class="lists"> <!-- It contains all the boxes. -->
+            <div class="c20">
+                <!-- has been done using the embed feature in excel/ one drive -->
+               <button class="btn-20"> <p><a href="/cs20" class="cs20">CSE-2020 </a></p> </button>
+               <div class="logo">2020</div>
+            </div>
+            <div class="c21">
+                <button class="btn-21"><p><a href="/cs21" class="cs21">CSE-2021</a></p></button>
+                <div class="logo">2021</div>
+            </div>
+            <div class="c22">
+               <button class="btn-22"><p> <a href="/cs22" class="cs22">CSE-2022</a></p></button>
+               <div class="logo">2022</div>
+            </div>
+            <div class="c23">
+               <button class="btn-23"><p><a href="/cs23" class="cs23">CSE-2023</a></p></button>
+               <div class="logo">2023</div> 
+
+            </div>
+            <div class="a23">
+                <button class="btn-a23"><p><a href="/ad23" class="ad23">AD-2023</a></p></button>
+                <div class="logo">2023</div>
+            </div>
+        </div>
+
+    </div>
+  
+</body>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const searchInput = document.getElementById('searchInput');
+
+        searchInput.addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+
+                const searchTerm = searchInput.value.trim();
+                let tabRoute = '';
+
+                switch (searchTerm) {
+                    case 'profile':
+                        tabRoute = '/profile';
+                        break;
+                    case 'Home':
+                        tabRoute = '/home';
+                        break;
+                    case 'Announcements':
+                        tabRoute = '/announcement';
+                        break;
+                    case 'Time Table':
+                        tabRoute = '/timetable';
+                        break;
+                    case 'Books':
+                        tabRoute = '/e-books';
+                        break;
+                    case 'Events':
+                        tabRoute = '/events';
+                        break;
+                    case 'Planner':
+                        tabRoute = '/planner';
+                        break;
+                        case 'Users':
+                        tabRoute = '/users';
+                        break;
+                    case 'Chat':
+                        tabRoute = '/chats';
+                        break;
+                    case 'Leaderboard':
+                        tabRoute = '/leaderboard';
+                        break;
+                        case 'Contact Us':
+                        tabRoute = '/contactUs';
+                        break;
+                    default:
+                        // Handle invalid search term (optional)
+                        return;
+                }
+
+                if (tabRoute) {
+                    window.location.href = tabRoute;
+                }
+            }
+        });
+    });
+</script>
+</html>

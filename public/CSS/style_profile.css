@@ -1,0 +1,143 @@
+/* This is the CSS part for the profile */
+/* .content{
+  margin-left: 230px;
+  
+} */
+body {
+  /* background-image: linear-gradient(to bottom, #818181, #bebebe, #ffffff); */
+    font-family: "Lato", sans-serif;
+    background: url('/images//t2.jpg') ;
+    background-size: cover;
+    background-position: center center;
+   flex-wrap: wrap;
+  }
+*{
+  margin:0;
+  color:rgb(214, 214, 214);
+}
+.content {
+  /* makes the entire content to be displayed within the scope */
+   margin-left: 220px;
+   margin-top: 10px;
+}
+/* here side navigation bar */
+.sidenav {
+    height: 100%;
+    width: 210px;
+    position: fixed;
+    /* this helps the navigation bar to be fixed despite you scrolling */
+    z-index: 1;
+    /*z-index controls the stacking order of overlapping elements on a page */
+    top: 0;
+    left: 0;
+    background-color: #002D62;
+    overflow-x: hidden;
+    /*overflow-x sets what shows when content overflows a block-level element's left and right edges */
+    padding-top: 20px;
+    padding-left: 10px;
+    
+}
+
+.sidenav a {
+    /* We choose specifically .sidebar a to only select the ref-link 'a' from the sidebar div only */
+    padding: 6px 8px 6px 16 px;
+    /*top, right, bottom, and left paddings*/
+    text-decoration: none;
+    font-size: 20px;
+    color: whitesmoke;
+    display: block;
+    /*converting it to block level element*/
+}
+
+.sidenav a:hover {
+    color: rgba(0, 85, 255, 0.641);
+}
+
+.search{
+   
+    justify-content: center;
+}
+
+.last{
+    margin-top: 20px;
+} 
+
+  .div1{
+
+    margin-top: 12px;
+  }
+  
+.prof{
+    /* margin-left: 450px; */
+    font-size: 35px;
+    display: flex;
+    justify-content: center;
+}
+#roleText{
+  /* margin-left: 450px; */
+  font-size: 30px;
+  display: flex;
+  justify-content: center;
+}
+.div2{
+    height:170px;
+    background-image: linear-gradient(to bottom, #06027581, #07028968, #62c5f06a);
+    display: block;
+  }
+  .speciality{
+    color:rgb(221, 222, 222);
+    font-size:35px;
+    padding:55px;
+    /* margin-left:380px; */
+    display: flex;
+    justify-content: center;
+  }
+  .div3{
+    display: flex;
+    gap:150px;
+     margin-left: 150px;
+     margin-right: 150px;
+     margin-top: 10px;
+     margin-bottom: 10px;
+     justify-content: center;
+}
+
+/* CSS for the profile image */
+.divimage img {
+  width: 100%; /* Make the image fill the container */
+  height: 100%; /* Make the image fill the container */
+  /* object-fit: cover; Maintain aspect ratio and cover container */ 
+  /* this makes it look a bit clearer and does not stretch that much */
+  object-position: center;
+  border-radius: 50%; /* Ensure image remains circular */
+  position: absolute; /* Position image relative to container */
+  top: 0; /* Align image to top within container */
+  left: 0; /* Align image to left within container */
+  width: 200px; /* Fixed width for the container */
+  height: 200px; /* Fixed height for the container */
+  border: 2px solid rgb(154, 152, 152); /* Fixed border size */
+  border-radius: 50%; /* Make the container circular */
+  overflow: hidden; /* Hide any overflowing content */
+  display: flex; 
+  /* Use flexbox to center image */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  position: relative; /* Ensure relative positioning */
+  /* we will put the border to the image itself  */
+}
+
+
+.name,.email,.bio,.place,.description{
+  margin-right:50px;
+  margin-top:20px;
+  
+}
+.description{
+  flex-wrap: wrap;
+}
+
+.text{
+  display:inline-block; 
+  /* you can make it inline and block with your adjustments not the default ones */
+
+}

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+
+    <!-- <link rel="stylesheet" href="/CSS/sidebar.css"> -->
+    <link rel="stylesheet" href="/CSS/style_profile.css">
+</head>
+
+<body>
+    <!-- Sidebar -->
+    <div class="sidenav">
+        <input type="search" id="searchInput" placeholder="Search" title="Type to search" class="search-box">
+        <br><br>
+        <a href="/profile" class="profile">Profile</a><br>
+        <a href="/home" class="home_page">Home</a><br>
+        <a href="/announcement" class="announcement">Announcements</a><br>
+        <a href="/timetable" class="time-table">Time Table</a><br>
+        <a href="/e-books" class="books">e-Books/Materials</a><br>
+        <a href="/events" class="events">Events</a><br>
+        <a href="/planner" class="planner">Planner</a><br>
+        <a href="/chats" class="chat">Chat</a>
+        <br>
+        <a href="/leaderboard" class="Leaderboard">Leaderboard</a>
+        <br>
+        <a href="/contactUs" class="emails">Contact Us</a>
+        <br>
+    </div>
+
+    <!-- Main content -->
+    <div class="content">
+        <div class="div1">
+            <h2 class="prof"><b>Profile</b></h2> <br>
+        </div>
+        <div class="divrole">
+            <p  id="roleText"><b><%= globalrole %></b></p>
+        </div>
+        
+        <br>
+        <div class="div2">
+            <p class="speciality">
+                <%=globalspeciality%>
+            </p>
+        </div>
+        <br>
+        <!-- You can add more profile details here -->
+        <div class="div3">
+            <div class="divimage">
+                <!-- <p class="img"> img </p> -->
+                <img src="http://localhost:7700/<%= globalimage %>" alt="Profile Image" width="100px" height="100px">
+
+            </div>
+            <div class="text">
+                <p class="name">
+                    <b>Name:</b> <%=globalName%>
+                </p>
+                <p class="email">
+                   <b>email:</b> <%=globalemail%>
+                </p>
+                <p class="bio">
+                    <b>bio:</b> <%=globalbio%>
+                </p>
+                <p class="place">
+                    <b>place:</b> <%=globalplace%>
+                </p>
+                <p class="description">
+                    <b>description:</b> <%=globaldescription%>
+                </p>
+            </div>
+        </div>
+ 
+        <br>
+
+    </div>
+   
+</body>
+ <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const searchInput = document.getElementById('searchInput');
+
+        searchInput.addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+
+                const searchTerm = searchInput.value.trim();
+                let tabRoute = '';
+
+                switch (searchTerm) {
+                    case 'profile':
+                        tabRoute = '/profile';
+                        break;
+                    case 'Home':
+                        tabRoute = '/home';
+                        break;
+                    case 'Announcements':
+                        tabRoute = '/announcement';
+                        break;
+                    case 'Time Table':
+                        tabRoute = '/timetable';
+                        break;
+                    case 'Books':
+                        tabRoute = '/e-books';
+                        break;
+                    case 'Events':
+                        tabRoute = '/events';
+                        break;
+                    case 'Planner':
+                        tabRoute = '/planner';
+                        break;
+                    case 'Chat':
+                        tabRoute = '/chats';
+                        break;
+                    case 'Users':
+                        tabRoute = '/users';
+                        break;
+                    case 'Leaderboard':
+                        tabRoute = '/leaderboard';
+                        break;
+                    case 'Contact Us':
+                        tabRoute = '/contactUs';
+                        break;
+                    default:
+                        // Handle invalid search term (optional)
+                        return;
+                }
+
+                if (tabRoute) { //if tabRoute has been choosed
+                    window.location.href = tabRoute;
+                }
+            }
+        });
+    });
+
+
+    
+</script>
+
+</html>

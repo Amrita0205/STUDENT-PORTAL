@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Books and Materials</title>
+    <link rel="stylesheet" href="/CSS/book_main.css">
+    <link rel="stylesheet" href="/CSS/sidebar.css">
+    <style>
+        /* Custom styles specific to e-book page */
+        body {
+            font-family: Arial, sans-serif;
+            background: url('/images/t1.jpg');
+            background-position: center center;
+            margin: 0;
+            padding: 0;
+        }
+
+        .content {
+            margin-left: 200px;
+            padding: 20px;
+        }
+
+        .heading {
+            text-align: center;
+            color: #a4a4a4;
+            margin-left:60px;
+        }
+
+        .approved-ebooks {
+            padding: 20px;
+            
+        }
+
+        .eBook-card {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 10px;
+            backdrop-filter: blur(20px);
+            background: transparent;
+            border-radius: 10px;
+            border: 2px solid rgb(84, 83, 83);
+        
+           
+    
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+                }
+
+        .eBook-card a {
+            color: blue;
+            text-decoration: underline;
+        }
+
+        #addEBookForm {
+            margin-top: 10px;
+            padding: 20px;
+            /* background-color: #f9f9f9; */
+            border: 2px solid rgb(84, 83, 83);
+            border-radius: 10px;
+            /* background-color: #fff; */
+            backdrop-filter: blur(20px);
+    background: transparent;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        #addEBookForm label,
+        #addEBookForm input {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        #addEBookForm input[type="text"],
+        #addEBookForm input[type="file"] {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+
+        #addEBookForm button {
+            padding: 10px 20px;
+            transition: background-color 0.2s ease;
+
+            border-radius: 10px;
+           
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+            font-weight: 600;
+            border: 1px solid rgb(84, 83, 83);
+            background: rgba(20, 197, 241, 0.588);
+           
+        }
+
+        #addEBookForm button:hover {
+            color: rgba(16, 119, 145, 0.647);
+            font-weight: 600;
+           
+            border: 1px solid rgb(84, 83, 83);
+            background: white;
+            border-radius: 10px;
+            border: 1px solid rgb(84, 83, 83);
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: 600;
+
+        }
+    </style>
+</head>
+
+<body>
+    <div class="sidenav">
+        <!-- Sidebar links -->
+        <input type="search" id="searchInput" placeholder="Search" title="Type to search" class="search-box">
+        <br><br>
+        <a href="/home" class="home_page">Home</a><br>
+        <a href="/announcement" class="announcement">Announcements</a><br>
+        <a href="/timetable" class="time-table">Time Table</a><br>
+        <a href="/e-books" class="books">e-Books/Materials</a><br>
+        <a href="/events" class="events">Events</a><br>
+        <a href="/planner" class="planner">Planner</a><br>
+        <a href="/chats" class="chat">Chat</a><br>
+        <a href="/leaderboard" class="Leaderboard">Leaderboard</a><br>
+        <a href="/contactUs" class="emails">Contact Us</a><br>
+    </div>
+
+    <!-- Main content -->
+    <div class="content">
+        <h1 class="heading">E-Books and Materials</h1>
+
+        <!-- Display approved e-books -->
+        <div class="approved-ebooks">
+            
+            <div class="ebook-cards" id="ebookCards">
+                <% eBooks.forEach(eBook => { %>
+                    <div class="eBook-card">
+                        <p><b><span style="color: rgba(20, 197, 241, 0.588);">Title:</span></b> <span style="color: white;"><%= eBook.title %></span></p>
+    <p><b><span style="color: rgba(20, 197, 241, 0.588);">Author:</span></b> <span style="color: white;"><%= eBook.author %></span></p>
+    <p><b><span style="color: rgba(20, 197, 241, 0.588);">Course:</span></b> <span style="color: white;"><%= eBook.course %></span></p>
+    <p><b><span style="color: rgba(20, 197, 241, 0.588);">Teacher:</span></b> <span style="color: white;"><%= eBook.teacher %></span></p>
+    <p><b><span style="color: rgba(20, 197, 241, 0.588);">File:</span></b> <a href="#" onclick="openFile('<%= eBook.file %>')" style="color: rgb(58, 109, 228);">Click to open file</a></p>
+                    </div>
+                <% }); %>
+            </div>
+            <% if (globalrole === 'admin') { %>
+                <h2 style="margin-top: 20px; margin-left: 420px; color:#a4a4a4;">Add E-Books</h2>
+                <!-- Admin only: Add new e-book form -->
+                <form id="addEBookForm" enctype="multipart/form-data" method="POST" action="/e-books/add">
+                    <label for="title" style="color:white;">Title:</label>
+                    <input type="text" id="title" name="title" required><br><br>
+                    <label for="author" style="color:white;">Author:</label>
+                    <input type="text" id="author" name="author" required><br><br>
+                    <label for="course" style="color:white;">Course:</label>
+                    <input type="text" id="course" name="course" required><br><br>
+                    <label for="teacher" style="color:white;">Teacher:</label>
+                    <input type="text" id="teacher" name="teacher" required><br><br>
+                    <label for="file" style="color:white;">Choose File:</label>
+                    <input type="file" id="file" name="file" required style="color:white;"><br><br>
+                    <button type="submit">Add E-Book</button>
+                </form>
+            <% } %>
+        </div>
+    </div>
+
+    <!-- JavaScript for handling file opening and form submission -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+        const searchInput = document.getElementById('searchInput');
+
+        searchInput.addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+
+                const searchTerm = searchInput.value.trim();
+                let tabRoute = '';
+
+                switch (searchTerm) {
+                    case 'profile':
+                        tabRoute = '/profile';
+                        break;
+                    case 'Home':
+                        tabRoute = '/home';
+                        break;
+                    case 'Announcements':
+                        tabRoute = '/announcement';
+                        break;
+                    case 'Time Table':
+                        tabRoute = '/timetable';
+                        break;
+                    case 'Books':
+                        tabRoute = '/e-books';
+                        break;
+                    case 'Events':
+                        tabRoute = '/events';
+                        break;
+                    case 'Planner':
+                        tabRoute = '/planner';
+                        break;
+                        case 'Users':
+                        tabRoute = '/users';
+                        break;
+                    case 'Chat':
+                        tabRoute = '/chats';
+                        break;
+                    case 'Leaderboard':
+                        tabRoute = '/leaderboard';
+                        break;
+                        case 'Contact Us':
+                        tabRoute = '/contactUs';
+                        break;
+                    default:
+                        // Handle invalid search term (optional)
+                        return;
+                }
+
+                if (tabRoute) {
+                    window.location.href = tabRoute;
+                }
+            }
+        });
+    });
+
+        function openFile(filePath) {
+            // Implement file opening logic here (e.g., display in iframe or new window)
+            window.open(filePath, '_blank');
+        }
+
+        // Function to handle form submission for adding new e-book
+        document.addEventListener('DOMContentLoaded', function () {
+            const addEBookForm = document.getElementById('addEBookForm');
+
+            addEBookForm.addEventListener('submit', function (event) {
+                event.preventDefault();
+
+                const formData = new FormData(addEBookForm);
+
+                fetch('/e-books/add', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => {
+                    if (response.ok) {
+                        // Reload the page after successful submission
+                        window.location.reload();
+                    } else {
+                        throw new Error('Failed to add e-book.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error adding e-book:', error);
+                    alert('Failed to add e-book.');
+                });
+            });
+        });
+        
+    </script>
+</body>
+
+</html>

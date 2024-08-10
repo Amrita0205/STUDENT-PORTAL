@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal | Welcome</title>
+    <link rel="stylesheet" href="/CSS/sidebar.css">
+    <link rel="stylesheet" href="/CSS/home_pg.css">
+</head>
+
+<body>
+    <!-- Sidebar -->
+    <!-- Search bar is only about your Js logic!! and add Event Listeners that know on enter pressing we input from the user and 
+    take that and then based on the switch cases it just needs to redirect to that page VVimp  -->
+    <div class="sidenav">
+        <input type="search" id="searchInput" placeholder="Search" title="Type to search" class="search-box">
+        <br><br>
+        <a href="/profile" class="profile">Profile</a><br>
+        <% if (globalrole === 'admin') { %>
+            <a href="/users" class="users">Users</a><br>
+        <% } %>
+        <a href="/home" class="home_page">Home</a><br>
+        <a href="/announcement" class="announcement">Announcements</a><br>
+        <a href="/timetable" class="time-table">Time Table</a><br>
+        <a href="/e-books" class="books">e-Books/Materials</a><br>
+        <a href="/events" class="events">Events</a><br>
+        <a href="/planner" class="planner">Planner</a><br>
+        <a href="/chats" class="chat">Chat</a><br>
+        <a href="/leaderboard" class="Leaderboard">Leaderboard</a><br>
+        <a href="/contactUs" class="emails">Contact Us</a><br>
+        <!-- Display "Users" link only if the logged-in user is an admin -->
+        <!-- give the logic to display the anchor tag only if it is the user -->
+       
+        <div class="last">
+            <a href="/logout" class="log-out">Log Out</a><br>
+        </div>
+    </div>
+
+    <!-- Main content -->
+    <div class="content">
+        <div class="heading">
+            <h1>STUDENT PORTAL</h1>
+        </div>
+        <div>
+            <p class="welcome">Welcome <b><%= globalName %></b>!</p>
+          
+            <p id="intro-para">Step into our digital campus gateway, where every click opens
+                the door to a world of knowledge, collaboration, and engagement.
+                Welcome to our school portal, meticulously designed to keep you
+                informed about the latest announcements, upcoming events, and
+                interactive features tailored to enhance your educational
+                journey. Join us as we embark on a seamless experience of
+                exploration, communication, and community-building, right at
+                your fingertips.</p>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('searchInput');
+
+            searchInput.addEventListener('keypress', function(event) {
+                if (event.key === 'Enter') {
+                    event.preventDefault();
+
+                    const searchTerm = searchInput.value.trim();
+                    let tabRoute = '';
+
+                    switch (searchTerm) {
+                        case 'profile':
+                            tabRoute = '/profile';
+                            break;
+                        case 'Home':
+                            tabRoute = '/home';
+                            break;
+                        case 'Announcements':
+                            tabRoute = '/announcement';
+                            break;
+                        case 'Time Table':
+                            tabRoute = '/timetable';
+                            break;
+                        case 'Books':
+                            tabRoute = '/e-books';
+                            break;
+                        case 'Events':
+                            tabRoute = '/events';
+                            break;
+                            case 'Users':
+                        tabRoute = '/users';
+                        break;
+                        case 'Planner':
+                            tabRoute = '/planner';
+                            break;
+                        case 'Chat':
+                            tabRoute = '/chats';
+                            break;
+                        case 'Leaderboard':
+                            tabRoute = '/leaderboard';
+                            break;
+                            case 'Contact Us':
+                        tabRoute = '/contactUs';
+                        break;
+                        default:
+                            // Handle invalid search term (optional)
+                            return;
+                    }
+
+                    if (tabRoute) {
+                        window.location.href = tabRoute;
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

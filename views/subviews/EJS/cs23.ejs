@@ -1,0 +1,116 @@
+<!-- it's similar to all the batches -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSE-2023</title>
+    <link rel="stylesheet" href="/CSS/sidebar.css">
+    <style>
+        .my-content {
+            margin-left: 230px;
+        }
+    </style>
+</head>
+
+
+<body>
+    <!-- this should be present in all the htmls -->
+    <div class="sidenav">
+        <input type="search" placeholder="search" title="type to search" class="search-box">
+        <br>
+        <br>
+        <a href="/home" class="home_page">Home</a>
+        <br>
+        <a href="/announcement" class="announcement">Announcements</a>
+        <br>
+
+        <a href="/timetable" class="time-table">Time Table</a>
+
+
+        <br>
+        <a href="/e-books" class="books">e-Books/materials</a>
+        <br>
+        <a href="/events" class="events">Events</a>
+        <br>
+        <a href="/planner" class="planner">Planner</a>
+        <br>
+        <a href="/chats" class="chat">Chat</a>
+        <br>
+        <a href="/leaderboard" class="Leaderboard">Leaderboard</a>
+        <br>
+
+        <a href="/emails" class="emails">Emails</a>
+        <br>
+
+
+    </div>
+    <!-- -------------------------------------------- -->
+    <div class="my-content">
+        <!-- <iframe width="4000" height="3450" frameborder="0" scrolling="no" -->
+        <!-- src="https://onedrive.live.com/embed?resid=BA6319AC0EB7726F%21595&authkey=%21AKiWHJ0q5ajEORA&em=2&wdAllowInteractivity=False&wdDownloadButton=True&wdInConfigurator=True&wdInConfigurator=True"></iframe> -->
+        <iframe width="4000" height="3450" frameborder="0" scrolling="no"
+            src="https://onedrive.live.com/embed?resid=BA6319AC0EB7726F%21595&authkey=%21AKiWHJ0q5ajEORA&em=2&wdAllowInteractivity=False&wdDownloadButton=True&wdInConfigurator=True&wdInConfigurator=True"></iframe>
+    </div>
+
+</body>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const searchInput = document.getElementById('searchInput');
+
+        searchInput.addEventListener('keypress', function (event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+
+                const searchTerm = searchInput.value.trim();
+                let tabRoute = '';
+
+                switch (searchTerm) {
+                    case 'profile':
+                        tabRoute = '/profile';
+                        break;
+                    case 'Home':
+                        tabRoute = '/home';
+                        break;
+                    case 'Announcements':
+                        tabRoute = '/announcement';
+                        break;
+                    case 'Time Table':
+                        tabRoute = '/timetable';
+                        break;
+                    case 'Books':
+                        tabRoute = '/e-books';
+                        break;
+                    case 'Events':
+                        tabRoute = '/events';
+                        break;
+                    case 'Planner':
+                        tabRoute = '/planner';
+                        break;
+                    case 'Chat':
+                        tabRoute = '/chats';
+                        break;
+                    case 'Leaderboard':
+                        tabRoute = '/leaderboard';
+                        break;
+                        case 'Users':
+                        tabRoute = '/users';
+                        break;
+                    case 'Emails':
+                        tabRoute = '/emails';
+                        break;
+                    default:
+                        // Handle invalid search term (optional)
+                        return;
+                }
+
+                if (tabRoute) {
+                    window.location.href = tabRoute;
+                }
+            }
+        });
+    });
+</script>
+
+</html>

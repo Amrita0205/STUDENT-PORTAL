@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <link rel="stylesheet" href="/CSS/sidebar.css">
+    <style>
+
+        body {
+            background: url('/images/t1.jpg');
+            font-family: Arial, sans-serif;
+          
+            padding: 20px;
+            background-position: cover center;    
+            flex-wrap: wrap;
+        }
+
+        .container {
+            margin-left: 230px;
+        }
+
+        .theform {
+            margin-left: 260px;
+            margin-top: 10px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #ffffff;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        button {
+            padding: 10px;
+            margin-right: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        ul.task-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+
+        li {
+            background-color: transparent;
+            backdrop-filter: blur(20px);
+            border-radius: 10px;
+            margin-bottom: 10px;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 2px solid rgba(190, 190, 190, 0.731);
+        }
+
+        .task-name {
+            margin-left: 10px;
+            font-weight: bold;
+            color: #e8e8e8;
+        }
+
+        .due-date {
+            margin-left: 50px;
+            font-style: italic;
+            color: #d3f3c0;
+        }
+
+        .delete-button {
+            background-color: #dc3545;
+            color: #fff;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .delete-button:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+<div class="sidenav">
+    <input type="search" id="searchInput" placeholder="Search" title="Type to search" class="search-box">
+    <br>
+    <br>
+    <a href="/home" class="home_page">Home</a>
+    <br>
+    <a href="/announcement" class="announcement">Announcements</a>
+    <br>
+    <a href="/timetable" class="time-table">Time Table</a>
+    <br>
+    <a href="/e-books" class="books">e-Books/materials</a>
+    <br>
+    <a href="/events" class="events">Events</a>
+    <br>
+    <a href="/planner" class="planner">Planner</a>
+    <br>
+    <a href="/chats" class="chat">Chat</a>
+    <br>
+    <a href="/leaderboard" class="Leaderboard">Leaderboard</a>
+    <br>
+    <a href="/contactUs" class="emails">Contact Us</a>
+    <br>
+</div>
+<div class="container">
+    <h1>To-Do List</h1>
+    <div class="theform">
+        <form action="/todos" method="POST">
+            <input type="text" name="task" placeholder="Add new task..." required>
+            <input type="date" name="dueDate" required>
+            <button type="submit">Add Task</button>
+        </form>
+    </div>
+    <ul class="task-list">
+        <% todos.forEach(todo => { %>
+            <li >
+                    <div>
+                        <input type="checkbox" name="checkbox" <% if (todo.completed) { %> checked <% } %>
+                               onchange="toggleTaskCompletion('<%= todo._id %>')">
+                        <span class="task-name"><%= todo.task %></span>
+                        <span class="due-date">Due: <%= todo.dueDate.toDateString() %></span>
+                    </div>
+                    <div>
+                        <form action="/todos/<%= todo._id %>/delete" method="POST">
+                            <button class="delete-button" type="submit">Delete</button>
+                        </form>
+                    </div>
+        
+            </li>
+        <% }) %>
+    </ul>
+</div>
+
+<script>
+    async function toggleTaskCompletion(taskId) {
+        try {
+            const response = await fetch(`/todos/${taskId}/toggle`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ taskId })
+            });
+            if (!response.ok) {
+                throw new Error('Failed to update task completion');
+            }
+        } catch (error) {
+            console.error('Error toggling task completion:', error);
+        }
+    }
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const searchInput = document.getElementById('searchInput');
+
+        searchInput.addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+
+                const searchTerm = searchInput.value.trim();
+                let tabRoute = '';
+
+                switch (searchTerm) {
+                    case 'profile':
+                        tabRoute = '/profile';
+                        break;
+                    case 'Home':
+                        tabRoute = '/home';
+                        break;
+                    case 'Announcements':
+                        tabRoute = '/announcement';
+                        break;
+                    case 'Time Table':
+                        tabRoute = '/timetable';
+                        break;
+                    case 'Books':
+                        tabRoute = '/e-books';
+                        break;
+                    case 'Events':
+                        tabRoute = '/events';
+                        break;
+                    case 'Planner':
+                        tabRoute = '/planner';
+                        break;
+                    case 'Chat':
+                        tabRoute = '/chats';
+                        break;
+                        case 'Users':
+                        tabRoute = '/users';
+                        break;
+                    case 'Leaderboard':
+                        tabRoute = '/leaderboard';
+                        break;
+                        case 'Contact Us':
+                        tabRoute = '/contactUs';
+                        break;
+                    default:
+                        // Handle invalid search term (optional)
+                        return;
+                }
+
+                if (tabRoute) {
+                    window.location.href = tabRoute;
+                }
+            }
+        });
+    });
+</script>
+</body>
+</html>

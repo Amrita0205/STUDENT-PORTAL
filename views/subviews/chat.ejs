@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat</title>
+    <link rel="stylesheet" href="/CSS/sidebar.css">
+    <style>
+        /* Chat container styles */
+        body{
+            background: url('/images//black.avif') ;
+            background-size: cover;
+            background-position: center center;
+        }
+        .chat-container {
+            display: flex;
+            flex-direction: column;
+            height: 80vh; /* Adjust as needed */
+            border: 1px solid #6f6f6f;
+            border-radius: 5px;
+            overflow-y: auto;
+            padding: 10px;
+            background: url('/images/pexels-simon-rizzi-1809644.jpg');
+            background-size: cover;
+    background-position: center center;
+    margin-right: 14px;
+    /* margin-left: 5px; */
+        }
+
+        /* Message card styles */
+        .message-card {
+            max-width: 70%; /* Adjust as needed */
+            margin: 10px;
+            padding: 10px;
+            border-radius: 10px;
+            word-wrap: break-word;
+        }
+
+        .message-right {
+            align-self: flex-end;
+            background-color: #007bff;
+            color: #fff;
+            text-align: right;
+        }
+
+        .message-left {
+            align-self: flex-start;
+            background-color: #f0f0f0;
+            color: #333;
+            text-align: left;
+        }
+
+        /* Message input form styles */
+        .message-input {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .message-input input[type="text"] {
+            flex: 1;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+
+        .message-input input[type="submit"] {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    
+    <div class="sidenav">
+        <!-- Sidebar content here -->
+        
+    <div class="sidenav">
+        <input type="search" id="searchInput" placeholder="Search" title="Type to search" class="search-box">
+        <br><br>
+        <a href="/home" class="home_page">Home</a><br>
+        <a href="/announcement" class="announcement">Announcements</a><br>
+        <a href="/timetable" class="time-table">Time Table</a><br>
+        <a href="/e-books" class="books">e-Books/materials</a><br>
+        <a href="/events" class="events">Events</a><br>
+        <a href="/planner" class="planner">Planner</a><br>
+        <a href="/chats" class="chat">Chat</a><br>
+        <a href="/leaderboard" class="Leaderboard">Leaderboard</a><br>
+        <a href="/contactUs" class="emails">Contact Us</a><br>
+    </div>
+
+    </div>
+<div class="content">
+    <!-- Chat container -->
+    <h2 style="margin-left: 440px;margin-bottom: 4px; color:#c8c5c5;">Group Chat: </h2>
+    <div class="chat-container" id="message-container">
+        <% messages.forEach(message => { %>
+            <% if (message.user === currentUser) { %>
+                <!-- Message from current user (right-aligned) -->
+                <div class="message-card message-right">
+                    <p><strong>You:</strong></p>
+                    <p><%= message.text_msg %></p>
+                </div>
+                <!-- see each and every message will be stored in the form of a div -->
+                <% } else { %>
+                    <!-- Message from other users (left-aligned) -->
+                    <div class="message-card message-left">
+                        <p><strong><%= message.user %>:</strong></p>
+                        <p><%= message.text_msg %></p>
+                    </div>
+                    <!-- see each and every message will be stored in the form of a div -->
+            <% } %>
+        <% }); %>
+    </div>
+
+    <!-- Message input form -->
+    <% if(block=== false) {%>
+    <form id="messageForm" class="message-input">
+        <input type="text" id="textMsg" name="text_msg" placeholder="Type your message here" required>
+        <input type="submit" value="Send">
+    </form>
+    <% } else { %>
+        <br>
+     <p style="color:red; font-size: 16px;">You are blocked</p>
+     <% } %>
+</div>
+    <!-- JavaScript for fetching and submitting messages -->
+    <script>
+               document.addEventListener('DOMContentLoaded', function() {
+        const searchInput = document.getElementById('searchInput');
+
+        searchInput.addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+
+                const searchTerm = searchInput.value.trim();
+                let tabRoute = '';
+
+                switch (searchTerm) {
+                    case 'profile':
+                        tabRoute = '/profile';
+                        break;
+                    case 'Home':
+                        tabRoute = '/home';
+                        break;
+                    case 'Announcements':
+                        tabRoute = '/announcement';
+                        break;
+                    case 'Time Table':
+                        tabRoute = '/timetable';
+                        break;
+                    case 'Books':
+                        tabRoute = '/e-books';
+                        break;
+                    case 'Events':
+                        tabRoute = '/events';
+                        break;
+                        case 'Users':
+                        tabRoute = '/users';
+                        break;
+                    case 'Planner':
+                        tabRoute = '/planner';
+                        break;
+                    case 'Chat':
+                        tabRoute = '/chats';
+                        break;
+                    case 'Leaderboard':
+                        tabRoute = '/leaderboard';
+                        break;
+                        case 'Contact Us':
+                        tabRoute = '/contactUs';
+                        break;
+                    default:
+                        // Handle invalid search term (optional)
+                        return;
+                }
+
+                if (tabRoute) {
+                    window.location.href = tabRoute;
+                }
+            }
+        });
+    });
+
+    
+    document.addEventListener('DOMContentLoaded', () => {
+        fetchMessages(); // Fetch messages on page load
+        document.getElementById('messageForm').addEventListener('submit', sendMessage);
+    });
+
+    async function fetchMessages() {
+        try {
+            const response = await fetch('/messages/fetch');
+            const data = await response.json();
+
+            const messageContainer = document.getElementById('message-container');
+            if (messageContainer) {
+                messageContainer.innerHTML = ''; // Clear previous messages (it's like reusing the same variable)
+
+                data.forEach(message => {
+                    const card = document.createElement('div');
+                    card.classList.add('message-card', message.user === '<%= currentUser %>' ? 'message-right' : 'message-left');
+                    card.innerHTML = `
+                        <p><strong>${message.user === '<%= currentUser %>' ? 'You' : message.user}:</strong></p>
+                        <p>${message.text_msg}</p>
+                    `;
+                    messageContainer.appendChild(card);
+                });
+
+                // Scroll to bottom of message container
+                messageContainer.scrollTop = messageContainer.scrollHeight;
+            }
+        } catch (error) {
+            console.error('Error fetching messages:', error);
+        }
+    }
+
+    async function sendMessage(event) {
+        event.preventDefault();
+        const textMsg = document.getElementById('textMsg').value.trim();
+
+        if (!textMsg) return;
+
+        try {
+            const response = await fetch('/messages/add', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ text_msg: textMsg })
+            });
+
+            const data = await response.json();
+            console.log('Message sent successfully:', data);
+
+            // Clear input field after sending message
+            document.getElementById('textMsg').value = '';
+
+            // Fetch and display updated messages
+            fetchMessages();
+        } catch (error) {
+            console.error('Error sending message:', error);
+        }
+    }
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,355 @@
+<!-- users.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User List</title>
+    <link rel="stylesheet" href="/CSS/sidebar.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+
+        .content {
+            padding: 20px;
+        }
+
+        .user-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .user-table th,
+        .user-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .user-table th {
+            background-color: #f0f0f0;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+            object-fit: cover;
+        }
+
+        /* Hide edit form by default */
+        #editFormContainer {
+            display: none;
+            margin-top: 20px;
+        }
+        .theButton{
+            transition: background-color 0.2s ease;
+            border: 1px solid rgb(84, 83, 83);
+            border-radius: 10px;
+            padding: 10px 20px;
+            border-radius: 5px;
+            color: rgb(2, 2, 2);
+            cursor: pointer;
+            font-weight: 600;
+            border: 1px solid rgb(84, 83, 83);
+            background: rgba(20, 197, 241, 0.588);
+        }
+        .theButton:hover{
+            color: rgba(255, 255, 255, 0.788);
+            background: rgb(0, 0, 0);
+            font-weight: 600;
+            border: 1px solid rgb(84, 83, 83);
+            border-radius: 10px;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: 600;
+        }
+        /* .theButton:hover {
+    color: rgba(16, 119, 145, 0.647);
+    background: rgb(0, 0, 0);
+} */
+    </style>
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+    <div class="sidenav">
+        <!-- Sidebar links -->
+        <input type="search" id="searchInput" placeholder="Search" title="Type to search" class="search-box">
+        <br><br>
+        <a href="/home" class="home_page">Home</a><br>
+        <a href="/announcement" class="announcement">Announcements</a><br>
+        <a href="/timetable" class="time-table">Time Table</a><br>
+        <a href="/e-books" class="books">e-Books/Materials</a><br>
+        <a href="/events" class="events">Events</a><br>
+        <a href="/planner" class="planner">Planner</a><br>
+        <a href="/chats" class="chat">Chat</a><br>
+        <a href="/leaderboard" class="Leaderboard">Leaderboard</a><br>
+        <a href="/contactUs" class="emails">Contact Us</a><br>
+    </div>
+
+    <div class="content">
+        <h1>User List</h1>
+
+        <table class="user-table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Profile Picture</th>
+                    <th>Email</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="userTableBody">
+                <% if (users.length > 0) { %>
+                    <% for (let i = 0; i < users.length; i++) { %>
+                        <% const user = users[i]; %>
+                        <% if (user.email !== currentUser.email) { %>
+                            <tr>
+                                <td><%= user.name %></td>
+                                <td>
+                                    <% if (user.profilePicture) { %>
+                                        <img src="<%= user.profilePicture %>" alt="Profile Picture" class="user-avatar">
+                                    <% } else { %>
+                                        <span style="color: red;">Nil</span>
+                                    <% } %>
+                                </td>
+                                <td><%= user.email %></td>
+                                <td>
+                                    <button onclick="showEditForm('<%= user._id %>')" class="theButton">Edit</button>
+                                    <button onclick="deleteUser('<%= user._id %>')" class="theButton">Delete</button>
+                                    <% if (!user.isBlock) { %>
+                                        <button onclick="blockUser('<%= user._id %>')" class="theButton">Block</button>
+                                    <% } else { %>
+                                        <button onclick="unblockUser('<%= user._id %>')" class="theButton">Unblock</button>
+                                    <% } %>
+                                </td>
+                            </tr>
+                            <!-- Edit Form for each user -->
+                            <tr id="editFormRow_<%= user._id %>" style="display: none;">
+                                <td colspan="4">
+                                    <form id="editForm_<%= user._id %>">
+                                        <label for="name">Name:</label>
+                                        <input type="text" id="name_<%= user._id %>" name="name" value="<%= user.name %>" required><br><br>
+                                        <label for="email">Email:</label>
+                                        <input type="email" id="email_<%= user._id %>" name="email" value="<%= user.email %>" required><br><br>
+                                        <button type="button" onclick="updateUser('<%= user._id %>')" class="theButton">Save Changes</button>
+                                        <button type="button" onclick="hideEditForm('<%= user._id %>')" class="theButton">Cancel</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        <% } %>
+                    <% } %>
+                <% } else { %>
+                    <tr>
+                        <td colspan="4">No users found</td>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+         document.addEventListener('DOMContentLoaded', function() {
+        const searchInput = document.getElementById('searchInput');
+
+        searchInput.addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+
+                const searchTerm = searchInput.value.trim();
+                let tabRoute = '';
+
+                switch (searchTerm) {
+                    case 'profile':
+                        tabRoute = '/profile';
+                        break;
+                    case 'Home':
+                        tabRoute = '/home';
+                        break;
+                        case 'Users':
+                        tabRoute = '/users';
+                        break;
+                    case 'Announcements':
+                        tabRoute = '/announcement';
+                        break;
+                    case 'Time Table':
+                        tabRoute = '/timetable';
+                        break;
+                    case 'Books':
+                        tabRoute = '/e-books';
+                        break;
+                    case 'Events':
+                        tabRoute = '/events';
+                        break;
+                    case 'Planner':
+                        tabRoute = '/planner';
+                        break;
+                    case 'Chat':
+                        tabRoute = '/chats';
+                        break;
+                    case 'Leaderboard':
+                        tabRoute = '/leaderboard';
+                        break;
+                        case 'Contact Us':
+                        tabRoute = '/contactUs';
+                        break;
+                    default:
+                        // Handle invalid search term (optional)
+                        return;
+                }
+
+                if (tabRoute) {
+                    window.location.href = tabRoute;
+                }
+            }
+        });
+    });
+        function showEditForm(userId) {
+            const editFormRow = document.getElementById('editFormRow_' + userId);
+            if (editFormRow) {
+                editFormRow.style.display = 'table-row';
+            }
+        }
+
+        function hideEditForm(userId) {
+            const editFormRow = document.getElementById('editFormRow_' + userId);
+            if (editFormRow) {
+                editFormRow.style.display = 'none';
+            }
+        }
+
+        async function updateUser(userId) {
+            const name = document.getElementById('name_' + userId).value;
+            const email = document.getElementById('email_' + userId).value;
+
+            try {
+                const response = await fetch(`/edit/${userId}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ name, email })
+                });
+
+                if (response.ok) {
+                    alert('User details updated successfully!');
+                    fetchUsers(); // Refresh user list
+                    hideEditForm(userId); // Hide the edit form
+                } else {
+                    throw new Error('Failed to update user details');
+                }
+            } catch (error) {
+                console.error('Error updating user details:', error);
+                alert('Failed to update user details. Please try again.');
+            }
+        }
+
+        async function deleteUser(userId) {
+            try {
+                const response = await fetch(`/users/${userId}`, {
+                    method: 'DELETE'
+                });
+                if (response.ok) {
+                    alert('User deleted successfully');
+                    fetchUsers(); // Refresh user list
+                } else {
+                    throw new Error('Failed to delete user');
+                }
+            } catch (error) {
+                console.error('Error deleting user:', error);
+                alert('Failed to delete user');
+            }
+        }
+
+        async function fetchUsers() {
+            try {
+                const response = await fetch('/users');
+                const users = await response.json();
+                const userTableBody = document.getElementById('userTableBody');
+                userTableBody.innerHTML = ''; // Clear previous content
+
+                const currentUserEmail = '<%= currentUser.email %>'; // Replace with actual current user email
+
+                users.forEach(user => {
+                    if (user.email !== currentUserEmail) {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${user.name}</td>
+                            <td>
+                                ${user.profilePicture ? `<img src="${user.profilePicture}" alt="Profile Picture" class="user-avatar">` : '<span style="color: red;">Nil</span>'}
+                            </td>
+                            <td>${user.email}</td>
+                            <td>
+                                <button onclick="showEditForm('${user._id}')">Edit</button>
+                                <button onclick="deleteUser('${user._id}')">Delete</button>
+                            </td>
+                        `;
+                        userTableBody.appendChild(row);
+                    }
+                });
+            } catch (error) {
+                console.error('Error fetching users:', error);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchUsers(); // Load users initially
+        });
+
+        async function blockUser(userId) {
+        try {
+            const response = await fetch(`/users/block/${userId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ isBlock: true })
+            });
+
+            if (response.ok) {
+                alert('User blocked successfully!');
+                fetchUsers(); // Refresh user list
+            } else {
+                throw new Error('Failed to block user');
+            }
+        } catch (error) {
+            console.error('Error blocking user:', error);
+            alert('Failed to block user. Please try again.');
+        }
+    }
+
+    async function unblockUser(userId) {
+        try {
+            const response = await fetch(`/users/unblock/${userId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ isBlock: false })
+            });
+
+            if (response.ok) {
+                alert('User unblocked successfully!');
+                fetchUsers(); // Refresh user list
+            } else {
+                throw new Error('Failed to unblock user');
+            }
+        } catch (error) {
+            console.error('Error unblocking user:', error);
+            alert('Failed to unblock user. Please try again.');
+        }
+    }
+    </script>
+
+</body>
+
+</html>

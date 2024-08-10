@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Announcements</title>
+    <link rel="stylesheet" href="/CSS/sidebar.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background: url('/images//black.avif');
+            background-size: cover;
+            background-position: center center;
+            padding: 0;
+        }
+
+        .sidenav {
+            height: 100%;
+            width: 230px;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background-color: #111;
+            overflow-x: hidden;
+            padding-top: 20px;
+        }
+
+        /* Styles for main content area */
+        .content {
+            margin-left: 250px;
+            padding: 20px;
+        }
+
+        .heading {
+            font-size: 24px;
+            color: #9c9c9c;
+        }
+
+        .batch_cards {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        /* Style for batch card */
+        .batch-card {
+            width: 150px;
+            height: 150px;
+            border: 2px solid #ccc;
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            color: white;
+            box-shadow: 0 0 30px rgba(0, 0, 0, .5);
+            backdrop-filter: blur(20px);
+            background: transparent;
+            transition: background-color 0.2s ease;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            padding: 10px;
+            margin-bottom: 20px;
+            font-size: 20px;
+        }
+
+        .batch_cards :hover {
+            color: rgba(16, 119, 145, 0.647);
+            background: white;
+            font-weight: 600;
+            font-size: 25px;
+        }
+
+        /* Style for selected batch card */
+        .batch-card.selected {
+            background-color: rgba(16, 119, 145, 0.647);
+            color: white;
+        }
+
+        /* Style for announcement card */
+        .announcement-card {
+            margin-top: 20px;
+            padding: 20px;
+            border: 2px solid #ccc;
+            border-radius: 8px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Form styling */
+        form {
+            width: 100%;
+            max-width: 400px;
+            margin-top: 20px;
+            padding: 20px;
+            border: 2px solid #ccc;
+            border-radius: 8px;
+            backdrop-filter: blur(20px);
+            background: transparent;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        button[type="submit"] {
+            transition: background-color 0.2s ease;
+            border: 1px solid rgb(84, 83, 83);
+            border-radius: 10px;
+            padding: 10px 20px;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+            font-weight: 600;
+            border: 1px solid rgb(84, 83, 83);
+            background: rgba(20, 197, 241, 0.588);
+        }
+
+        button[type="submit"]:hover {
+            color: rgba(16, 119, 145, 0.647);
+            background: white;
+            font-weight: 600;
+            border: 1px solid rgb(84, 83, 83);
+            border-radius: 10px;
+            border: 1px solid rgb(84, 83, 83);
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: 600;
+        }
+
+        .edit-form {
+            width: 100%;
+            max-width: 400px;
+            margin-top: 20px;
+            padding: 20px;
+            border: 2px solid #ccc;
+            border-radius: 8px;
+            backdrop-filter: blur(20px);
+            background: transparent;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            color: white;
+            /* Text color */
+        }
+
+        /* Style for labels within the edit form */
+        .edit-form label {
+            font-weight: bold;
+            color: white;
+            /* Label text color */
+        }
+
+        /* Style for input and textarea within the edit form */
+        .edit-form input[type="text"],
+        .edit-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            color: black;
+            /* Text color for input and textarea */
+            background-color: #fff;
+            /* Background color for input and textarea */
+        }
+
+        /* Style for buttons within the edit form */
+        .edit-form button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            border: 1px solid #888787;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            background-color: rgba(20, 197, 241, 0.588);
+            /* Green */
+            color: white;
+            transition: background-color 0.3s ease;
+        }
+
+        /* Hover effect for buttons */
+        .edit-form button:hover {
+            color: rgba(16, 119, 145, 0.647);
+            background: white;
+        }
+
+        .edit-button {
+            cursor: pointer;
+            margin-top: 10px;
+            padding: 10px 20px;
+            border: 1px solid #888787;
+            border-radius: 5px;
+
+            font-weight: bold;
+            background-color: rgba(11, 120, 148, 0.655);
+
+            color: white;
+            transition: background-color 0.3s ease;
+        }
+        .delete-button{
+            cursor: pointer;
+            margin-top: 10px;
+            padding: 10px 20px;
+            border: 1px solid #888787;
+            border-radius: 5px;
+
+            font-weight: bold;
+            background-color: rgba(11, 120, 148, 0.655);
+
+            color: white;
+            transition: background-color 0.3s ease;
+        }
+        .edit-button:hover {
+            /* Additional hover styles if needed */
+            color: rgba(16, 119, 145, 0.647);
+            background: white;
+        }
+        .delete-button:hover {
+            /* Additional hover styles if needed */
+            color: rgba(16, 119, 145, 0.647);
+            background: white;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Sidebar -->
+    <div class="sidenav">
+        <!-- Sidebar links -->
+        <input type="search" id="searchInput" placeholder="Search" title="Type to search" class="search-box">
+        <br><br>
+        <a href="/home" class="home_page">Home</a><br>
+        <a href="/announcement" class="announcement">Announcements</a><br>
+        <a href="/timetable" class="time-table">Time Table</a><br>
+        <a href="/e-books" class="books">e-Books/Materials</a><br>
+        <a href="/events" class="events">Events</a><br>
+        <a href="/planner" class="planner">Planner</a><br>
+        <a href="/chats" class="chat">Chat</a><br>
+        <a href="/leaderboard" class="Leaderboard">Leaderboard</a><br>
+        <a href="/contactUs" class="emails">Contact Us</a><br>
+    </div>
+
+    <!-- Main content -->
+    <div class="content">
+        <h1 class="heading" style="margin-left: 400px;">Announcements</h1>
+        <!-- Batch Cards -->
+        <div class="batch_cards">
+            <div class="batch-card" onclick="showAnnouncements('CS-2023')" data-batch="CS-2023"><b>CS-2023</b></div>
+            <div class="batch-card" onclick="showAnnouncements('AD-2023')" data-batch="AD-2023"><b>AD-2023</b></div>
+            <div class="batch-card" onclick="showAnnouncements('CS-2022')" data-batch="CS-2022"><b>CS-2022</b></div>
+            <div class="batch-card" onclick="showAnnouncements('CS-2021')" data-batch="CS-2021"><b>CS-2021</b></div>
+            <div class="batch-card" onclick="showAnnouncements('CS-2020')" data-batch="CS-2020"><b>CS-2020</b></div>
+        </div>
+
+        <!-- Announcement Container -->
+        <div id="announcement-container">
+            <!-- This section will be populated with announcement cards -->
+        </div>
+
+        <!-- Form to add new announcement (visible to admins) -->
+        <% if (globalrole==='admin' ) { %>
+            <div>
+                <br>
+                <h2 style="margin-left: 360px; color:#9c9c9c">Add New Announcement</h2>
+                <form id="announcementForm">
+                    <label for="batch" style="color:white; ">Batch:</label>
+                    <br><br>
+                    <input type="text" id="batch" name="batch" required><br><br>
+                    <label for="message" style="color:white; ">Message:</label><br>
+                    <br>
+                    <textarea id="message" name="message" rows="4" cols="30" required></textarea><br><br>
+                    <button type="submit">Add Announcement</button>
+                </form>
+            </div>
+            <% } %>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const searchInput = document.getElementById('searchInput');
+
+            searchInput.addEventListener('keypress', function (event) {
+                if (event.key === 'Enter') {
+                    event.preventDefault();
+
+                    const searchTerm = searchInput.value.trim();
+                    let tabRoute = '';
+
+                    switch (searchTerm) {
+                        case 'profile':
+                            tabRoute = '/profile';
+                            break;
+                        case 'Home':
+                            tabRoute = '/home';
+                            break;
+                        case 'Announcements':
+                            tabRoute = '/announcement';
+                            break;
+                        case 'Time Table':
+                            tabRoute = '/timetable';
+                            break;
+                        case 'Books':
+                            tabRoute = '/e-books';
+                            break;
+                        case 'Events':
+                            tabRoute = '/events';
+                            break;
+                        case 'Planner':
+                            tabRoute = '/planner';
+                            break;
+                        case 'Chat':
+                            tabRoute = '/chats';
+                            break;
+                        case 'Leaderboard':
+                            tabRoute = '/leaderboard';
+                            break;
+                        case 'Contact Us':
+                            tabRoute = '/contactUs';
+                            break;
+                        default:
+                            // Handle invalid search term (optional)
+                            return;
+                    }
+
+                    if (tabRoute) {
+                        window.location.href = tabRoute;
+                    }
+                }
+            });
+        });
+        // Function to display edit form for an announcement
+        function showEditForm(announcementId, batch, message) {
+            const formId = `editAnnouncementForm_${announcementId}`;
+            const existingForm = document.getElementById(formId);
+
+            // Check if the form already exists
+            if (existingForm) {
+                // If form exists, focus on it (optional)
+                existingForm.querySelector('input[type="text"]').focus();
+                return; // Exit function to prevent duplicate form
+            }
+
+            const formHtml = `
+        <form id="${formId}" class="edit-form">
+            <label for="editedBatch" style="color: #9c9c9c;">Batch:</label><br><br>
+            <input type="text" id="editedBatch_${announcementId}" name="editedBatch" value="${batch}" required><br><br>
+            <label for="editedMessage" style="color: #9c9c9c;">Message:</label><br><br>
+            <textarea id="editedMessage_${announcementId}" name="editedMessage" rows="4" cols="30" required>${message}</textarea><br><br>
+            <button type="button" onclick="updateAnnouncement('${announcementId}')">Save Changes</button>
+            <button type="button" onclick="hideEditForm('${announcementId}')">Cancel</button>
+        </form>
+    `;
+
+            // Insert the edit form after the announcement card
+            const announcementContainer = document.getElementById('announcement-container');
+            const card = announcementContainer.querySelector(`.announcement-card[data-id="${announcementId}"]`);
+            if (card) {
+                card.insertAdjacentHTML('afterend', formHtml);
+            }
+        }
+
+        // Function to hide the edit form for an announcement
+        function hideEditForm(announcementId) {
+            const editForm = document.getElementById(`editAnnouncementForm_${announcementId}`);
+            if (editForm) {
+                editForm.remove();
+            }
+        }
+
+        // Function to update an announcement
+        function updateAnnouncement(announcementId) {
+            const editedBatch = document.getElementById(`editedBatch_${announcementId}`).value;
+            const editedMessage = document.getElementById(`editedMessage_${announcementId}`).value;
+
+            // Send a PUT request to update the announcement
+            fetch(`/announcements/update/${announcementId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ batch: editedBatch, message: editedMessage })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    // Refresh announcements after updating
+                    showAnnouncements(data.batch);
+                    // Hide the edit form
+                    hideEditForm(announcementId);
+                })
+                .catch(error => console.error('Error updating announcement:', error));
+        }
+
+        // Function to display announcements for a selected batch
+        function showAnnouncements(batch) {
+            // Reset previously selected batch cards
+            const batchCards = document.querySelectorAll('.batch-card');
+            batchCards.forEach(card => {
+                card.classList.remove('selected');
+            });
+
+            // Set the selected batch card
+            const selectedCard = document.querySelector(`.batch-card[data-batch="${batch}"]`);
+            if (selectedCard) {
+                selectedCard.classList.add('selected');
+            }
+
+            // Fetch announcements for the selected batch from the server
+            fetchAnnouncements(batch);
+        }
+
+        // Function to fetch announcements from the server
+        function fetchAnnouncements(batch)
+        {
+            fetch('/announcements/fetch', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ batch })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    const announcementContainer = document.getElementById('announcement-container');
+                    if (announcementContainer) {
+                        announcementContainer.innerHTML = ''; // Clear previous content
+
+                        data.forEach(announcement => {
+                            const card = document.createElement('div');
+                            card.classList.add('announcement-card');
+                            card.setAttribute('data-id', announcement._id); // Set unique identifier
+
+                            card.innerHTML = `
+        <p><b>Batch:</b> ${announcement.batch}</p>
+        <p><b>Message:</b> ${announcement.message}</p>
+        <p><b>Created By:</b> ${announcement.createdBy}</p>
+        <p><b>Created At:</b> ${announcement.createdAt}</p>
+        <% if (globalrole === 'admin') { %>
+            <button class="edit-button" onclick="showEditForm('${announcement._id}', '${announcement.batch}', '${announcement.message}') ">Edit</button>
+            <button class="delete-button" onclick="deleteEvent('${announcement._id}', '${announcement.batch}', '${announcement.message}') ">Delete</button>
+        <% } %>
+       `;
+
+                            announcementContainer.appendChild(card);
+                        });
+
+
+
+    }
+                })
+                .catch(error => console.error('Error fetching announcements:', error));
+     }
+     function deleteEvent(eventId) {
+            fetch(`/announcements/delete/${eventId}`, {
+                method: 'DELETE'
+            })
+                .then(() => {
+                    // Reload events after deletion
+                    fetchAnnouncements();
+                })
+                .catch(error => console.error('Error deleting event:', error));
+        }
+
+        // Event listener for submitting new announcement form
+        document.getElementById('announcementForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+            const batch = document.getElementById('batch').value;
+            const message = document.getElementById('message').value;
+            
+            // Send a POST request to add a new announcement
+            fetch('/announcements/add', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ batch, message })
+            })
+                .then(response => response.json())
+                .then(data => {
+                     
+                    // Refresh announcements after adding new announcement
+                    showAnnouncements(batch);
+                   
+                    // Clear form inputs
+                    document.getElementById('batch').value = '';
+                    document.getElementById('message').value = '';
+                })
+                .catch(error => console.error('Error adding announcement:', error));
+        });
+
+
+    </script>
+</body>
+
+</html>

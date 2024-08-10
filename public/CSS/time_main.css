@@ -1,0 +1,305 @@
+/* This is the CSS part for the timetable */
+body{
+    background: url('/images//black.avif') no-repeat;
+    background-size: cover;
+    background-position: center center;
+}
+.content a {
+    display: block;
+
+}
+
+.contentline{
+    color:white;
+    font-size: 20px;
+    margin-top: 6px;
+}
+.heading{
+    font-size: 30px;
+    color: rgba(20, 197, 241, 0.588);
+}
+.lists{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin-top: 30px;
+    margin-bottom: 10px;
+
+    
+}
+
+.lists .c20{
+    border: 2px solid rgb(84, 83, 83);
+    border-radius: 10px;
+    height:200px;
+    width:200px;
+    padding:15px;
+    box-shadow:0 0 30px rgba(0,0,0,.5);
+    backdrop-filter: blur(20px);
+    background: transparent;
+    
+    
+}
+p{
+    font-size: 15px;
+     
+    }
+.lists .c20 .cs20{
+    display: inline-block;
+    align-items: center;
+    justify-content: center;
+    color:white;
+    border: 1px solid rgb(84, 83, 83);
+    background: rgba(20, 197, 241, 0.588);
+    border-radius: 10px;
+    padding: 5px;
+    text-decoration: none;
+    margin-left:50px;
+    height:20px;
+    width:80px;
+    margin-top: 10px;
+    transition: all 0.3s; 
+
+}
+.lists .c20 .cs20:hover{
+    display: inline-block;
+    align-items: center;
+    justify-content: center;
+    color:  rgba(16, 119, 145, 0.647);
+    font-weight: 600;
+   
+    border: 1px solid rgb(84, 83, 83);
+    background:white;
+    border-radius: 10px;
+    padding: 5px;
+    text-decoration: none;
+    margin-left:50px;
+    height:20px;
+    width:80px;
+    margin-top: 10px;   
+}
+
+.btn-20{
+    backdrop-filter: blur(20px);
+    background: transparent;
+    border:none;
+    
+}
+.logo{
+    margin-top: 10px;
+    margin-left: 10px;
+    font-size: 80px;
+    font-family:monospace;
+    color:rgba(192, 237, 236, 0.759);
+}
+.lists .c21{
+    border: 2px solid rgb(84, 83, 83);
+    border-radius: 10px;
+    height:200px;
+    width:200px;
+    padding:15px;
+    box-shadow:0 0 30px rgba(0,0,0,.5);
+    backdrop-filter: blur(20px);
+    background: transparent;
+}
+.lists .c21 .cs21{
+    display: inline-block;
+    align-items: center;
+    justify-content: center;
+    color:white;
+    border: 1px solid rgb(84, 83, 83);
+    background:  rgba(20, 197, 241, 0.588);
+    border-radius: 10px;
+    padding: 5px;
+    text-decoration: none;
+    margin-left:50px;
+    height:20px;
+    width:80px;
+    margin-top: 10px;
+    transition: all 0.3s; 
+
+}
+.lists .c21 .cs21:hover{
+    display: inline-block;
+    align-items: center;
+    justify-content: center;
+    color:  rgba(16, 119, 145, 0.647);
+    font-weight: 600;
+    /* color:white; */
+    border: 1px solid rgb(84, 83, 83);
+    background:white;
+    /* background: rgba(20, 197, 241, 0.588); */
+    border-radius: 10px;
+    padding: 5px;
+    text-decoration: none;
+    margin-left:50px;
+    height:20px;
+    width:80px;
+    margin-top: 10px;   
+}
+.btn-21{
+    backdrop-filter: blur(20px);
+    background: transparent;
+    border:none;
+    
+}
+
+.lists .c22{
+   
+    border: 2px solid rgb(84, 83, 83);
+    border-radius: 10px;
+    height:200px;
+    width:200px;
+    padding:15px;
+    box-shadow:0 0 30px rgba(0,0,0,.5);
+    backdrop-filter: blur(20px);
+    background: transparent;
+}
+.lists .c22 .cs22{
+    display: inline-block;
+    align-items: center;
+    justify-content: center;
+    color:white;
+    border: 1px solid rgb(84, 83, 83);
+    background: rgba(20, 197, 241, 0.588);
+    border-radius: 10px;
+    padding: 5px;
+    text-decoration: none;
+    margin-left:50px;
+    height:20px;
+    width:80px;
+    transition: all 0.3s; 
+
+    margin-top: 10px;
+}
+.lists .c22 .cs22:hover{
+    display: inline-block;
+    align-items: center;
+    justify-content: center;
+    color:  rgba(16, 119, 145, 0.647);
+    font-weight: 600;
+    /* color:white; */
+    border: 1px solid rgb(84, 83, 83);
+    background:white;
+    /* background: rgba(20, 197, 241, 0.588); */
+    border-radius: 10px;
+    padding: 5px;
+    text-decoration: none;
+    margin-left:50px;
+    height:20px;
+    width:80px;
+    margin-top: 10px;   
+}
+.btn-22{
+    backdrop-filter: blur(20px);
+    background: transparent;
+    border:none;
+    
+}
+
+.lists .c23{
+   
+    border: 2px solid rgb(84, 83, 83);
+    border-radius: 10px;
+    height:200px;
+    width:200px;
+    padding:15px;
+    box-shadow:0 0 30px rgba(0,0,0,.5);
+    backdrop-filter: blur(20px);
+    background: transparent;
+    
+}
+.lists .c23 .cs23{
+    display: inline-block;
+    align-items: center;
+    justify-content: center;
+    color:white;
+    border: 1px solid rgb(84, 83, 83);
+    background: rgba(20, 197, 241, 0.588);
+    border-radius: 10px;
+    padding: 5px;
+    text-decoration: none;
+    margin-left:50px;
+    height:20px;
+    width:80px;
+    margin-top: 10px;
+    transition: all 0.3s; 
+
+}
+.lists .c23 .cs23:hover{
+    display: inline-block;
+    align-items: center;
+    justify-content: center;
+    color:  rgba(16, 119, 145, 0.647);
+    font-weight: 600;
+    /* color:white; */
+    border: 1px solid rgb(84, 83, 83);
+    background:white;
+    /* background: rgba(20, 197, 241, 0.588); */
+    border-radius: 10px;
+    padding: 5px;
+    text-decoration: none;
+    margin-left:50px;
+    height:20px;
+    width:80px;
+    margin-top: 10px;   
+}
+.btn-23{
+    backdrop-filter: blur(20px);
+    background: transparent;
+    border:none;
+    
+}
+.lists .a23{
+   
+    border: 2px solid rgb(84, 83, 83);
+    border-radius: 10px;
+    height:200px;
+    width:200px;
+    padding:15px;
+    box-shadow:0 0 30px rgba(0,0,0,.5);
+    backdrop-filter: blur(20px);
+    background: transparent;
+
+}
+.lists .a23 .ad23{
+    display: inline-block;
+    align-items: center;
+    justify-content: center;
+    color:white;
+    border: 1px solid rgb(84, 83, 83);
+    background: rgba(20, 197, 241, 0.588);
+    border-radius: 10px;
+    padding: 5px;
+    text-decoration: none;
+    margin-left:50px;
+    height:20px;
+    width:80px;
+    margin-top: 10px;
+    transition: all 0.3s; 
+
+}
+.lists .a23 .ad23:hover{
+    display: inline-block;
+    align-items: center;
+    justify-content: center;
+    color:  rgba(16, 119, 145, 0.647);
+    font-weight: 600;
+    /* color:white; */
+    border: 1px solid rgb(84, 83, 83);
+    background:white;
+    /* background: rgba(20, 197, 241, 0.588); */
+    border-radius: 10px;
+    padding: 5px;
+    text-decoration: none;
+    margin-left:50px;
+    height:20px;
+    width:80px;
+    margin-top: 10px;   
+}
+.btn-a23{
+    backdrop-filter: blur(20px);
+    background: transparent;
+    border:none;
+    
+}
